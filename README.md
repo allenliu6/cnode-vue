@@ -1,7 +1,6 @@
 # cnodejs
 
-> cnodejs vue版,使用vue+vuex+vue-router+vue-cli开发
-
+> cnodejs vue版,使用vue+vuex+vue-router+vue-cli开发，webpack模块打包
 ## Build Setup
 
 ``` bash
@@ -16,3 +15,7 @@ npm run build
 ```
 
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+   
+   
+   最后感谢cnode社区的[API](https://cnodejs.org/api "悬停显示")
