@@ -15,6 +15,7 @@ npm run build
 ```
 
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
     
     本项目是基于已有的[cnode中文社区](https://cnodejs.org "cnode中文社区主页")而写
 
