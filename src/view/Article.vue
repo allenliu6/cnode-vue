@@ -1,5 +1,5 @@
 <template>
-<!-- 回复错误信息 -->
+<!-- 显示回复错误信息 -->
 <div class="main">
 	<div class="main-left" >
 		<hint v-if='hint.show' :hint='hint'></hint>
@@ -86,6 +86,7 @@
 				replyContent:'',
 			}
 		},
+		
 		computed: {
 			article(){
 				return this.$store.getters.getArticle
@@ -110,6 +111,7 @@
             }
 		},
 		created(){
+			this.$store.dispatch('hintInit')
 			this.$store.dispatch( 'fetch_article', {id: this.$route.params.id} )
 				.catch( (e) => console.log(e))
 		}

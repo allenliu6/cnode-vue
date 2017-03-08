@@ -1,14 +1,8 @@
 <template>
 	<div class="main">
 		<div class="main-left">
-			<div class="loading" v-if='loading'>
-				<div>数据加载中...</div>
-			</div>
-
-			<div class="error" v-if='error'>
-				<div>数据错误</div>
-			</div>
-			<div class="include" v-if='post'>
+			<hint v-if='hint.show' :hint='hint'></hint>
+			<div class="include" v-else>
 				<div class="panel">
 					<div class="header">
 						主页
@@ -75,7 +69,6 @@
 					<div v-else class="content">无话题</div>
 				</div>
 			</div>
-			
 				
 		</div>
 		<div class="main-right">
@@ -86,38 +79,29 @@
 
 <script>
 	import sideBar from '../components/sideBar'
+	import hint from '../components/hint'
 
 	export default{
-		data(){
-			return {
-				error: '',
-				post: '',
-				loading: true,
-			}
-		},
 		components: {
-			sideBar
+			sideBar,
+			hint,
 		},
 		computed:{
 			author(){
 				return this.$store.getters.getUser
 			},
+			hint(){
+                return this.$store.getters.getHint
+            }
 		},
 		methods:{
 			getData(user){
 				 this.$store.dispatch('fetch_user', {user})
-					.then( (bool) => {
-						if (bool && typeof bool ==='boolean') {
-							this.loading = false;
-							this.post = true;
-						}else{
-							this.loading = false;
-							this.error = true;
-						}
-					})
+					.catch( e => console.log(e) )
 			}
 		},
 		created(){
+			this.$store.dispatch('hintInit')
 			this.getData(this.$route.params.user);
 		},
 		watch: {

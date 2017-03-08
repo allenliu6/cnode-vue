@@ -108,6 +108,7 @@
 		methods:{
 			changeStatus( tab, page ){
 				document.body.scrollTop = 0;
+				this.$store.dispatch('hintInit')
 				this.$store.dispatch("fetch_list", {tab, page} )
 					.catch( (e) => console.log(e))
 			},

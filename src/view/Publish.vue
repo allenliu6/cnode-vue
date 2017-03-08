@@ -5,6 +5,7 @@
                 <div class="header">
                     <span class="colorGreen">发布话题</span>
                 </div>
+                <hint v-if='hint.show' :hint = 'hint'></hint>
                 <div class="addPadding">
                     <div class="selectType">
                         选择板块：
@@ -33,6 +34,7 @@
 
 <script>
     import sideBar from '../components/sideBar'
+    import hint from '../components/hint'
     import {transTab} from '../filter'
 
 	export default {
@@ -49,21 +51,35 @@
             },
             token(){
                 return this.$store.getters.getToken
+            },
+            hint(){
+                return this.$store.getters.getHint
             }
         },
         components:{
-            sideBar
+            sideBar,
+            hint
         },
 		methods: {
 			submitReply(){
+                this.$store.dispatch('hintInit')
                 this.$store.dispatch('fetch_publish', {accesstoken:this.token, content: this.content, title: this.title, tab: this.type })
                     .then( json => {
                         if(json.success && typeof json.success === 'boolean'){
                             this.$router.push({ name: 'article', params: {id: json.topic_id}})
                         }
                     })
+                    .catch( e => console.log(e) )
             }
 		},
+        
+        watch:{
+            loginUser(val){
+                if((typeof loginUser !== "object" || Object.keys(loginUser).length === 0)){
+                    this.$router.push({ name: 'index'})
+                }
+            }
+        }
 		
 	}
 </script>

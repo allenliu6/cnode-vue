@@ -5,14 +5,15 @@
                 <div class="header">
                     主页\<span class="colorGreen">登录</span>
                 </div>
-        
-                <div class="warning" :class='{ colorRed : warning, bcolorGreen : waiting }'>
-                    <span v-if='warning'>请输入合法token值</span>
-                    <span v-if='waiting'>请等待回到主页</span>
+                <div class="warning">
+                    <hint v-if = 'hint.show' :hint = 'hint'></hint>
                 </div>
                 <div class="login">
-                        accessToken:<input @keyup.enter = 'checkToken()' @change='tokenLength()' v-model='tokenIn' class="loginText" type="text" placeholder="请输入accessToken">
-                       <div><input @click='checkToken()' type="button" value="登入" class="loginBtn"></div> 
+                        accessToken:
+                        <input @keyup.enter = 'checkToken()' @change='tokenLength()' v-model='tokenIn' class="loginText" type="text" placeholder="请输入accessToken">
+                        <div>
+                            <input @click='checkToken()' type="button" value="登入" class="loginBtn">
+                        </div> 
                 </div>
             </div>
         </div>
@@ -24,33 +25,38 @@
 
 <script>
     import sideBar from '../components/sideBar'
+    import hint from '../components/hint'
+
     export default {
+        components: {
+            sideBar,
+            hint
+        },
         data(){
             return {
-                warning:false,
-                waiting:false,
-                tokenIn:'',
+                tokenIn:''
             }
-        },
-        components: {
-            sideBar
         },
         computed:{
             loginMes(){
                 return this.$store.getters.getLoginUser
             },
+            hint(){
+                return this.$store.getters.getHint
+            }
            
         },
         methods:{
             tokenLength(){
-                if(this.tokenIn.length !== 36){
-                    this.warning = true;
-                }
+                this.$store.dispatch( 'check_token', this.tokenIn.length === 36 )
             },
             checkToken(){
+                this.$store.dispatch('hintInit')
                 if(this.tokenIn.length !== 36){
-                    this.warning = true;
-                    return
+                    this.$store.dispatch( 'check_token', false )
+                    return 
+                }else{
+                    this.$store.dispatch( 'check_token', true )
                 }
                this.$store.dispatch('fetch_token', {accesstoken: this.tokenIn})
                 .then((bool) => {
@@ -58,9 +64,7 @@
                         let date = new Date()
                         date.setDate(date.getDate() + 7)
                         document.cookie = `token=${this.tokenIn};expires=${date};`
-                        //`token=${this.tokenIn};expires=${date};secure path domain`
-                        this.waiting = true
-                        }
+                    }
                 })
             },
 
@@ -97,15 +101,11 @@
         }
 
         .warning{
-            color: #b94a48;
             height: 50px;
-            line-height: 50px;
-            text-align: center;
-            margin-top: 20px;
         }
 
         .login{
-            margin: 30px auto;
+            margin: 80px auto;
             height: 50px;
             text-align: center;
             font-size: 18px;

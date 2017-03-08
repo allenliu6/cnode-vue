@@ -7,10 +7,10 @@
 			<li>
 				<router-link to='/'>首页</router-link>
 			</li>
-			<li v-if='user'>
+			<li v-if='typeof user === "object" && Object.keys(user).length > 0'>
 				<router-link to='/message'>未读消息</router-link>
 			</li>
-			<li v-if='!user'>
+			<li v-if='typeof user !== "object" || Object.keys(user).length === 0'>
 				<router-link to='/login'>登录</router-link>
 			</li>
 			<li v-else>
@@ -30,7 +30,6 @@
 		methods:{
 			quit(){
 				this.$store.dispatch('fetch_quit')
-				this.user = ''
 			},
 			autoLogin(){
 				const arr = document.cookie.split(';');
@@ -40,12 +39,11 @@
 					if(i.startsWith('token=')){
 						token = i.split('=')[1]
 					}
-
 				}
 				
 				if(token.length === 36){
 					this.$store.dispatch('fetch_token', {accesstoken: token})
-							.catch( (e) => console.log(e))
+						.catch( (e) => console.log(e))
 				}
 			}
 		},

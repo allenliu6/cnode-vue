@@ -1,6 +1,6 @@
 <template>
 	<div class="sidebar">
-		<div v-if='this.$route.name != "article" && this.$route.name != "user" && this.$route.name != "publish" && (!token || !author)'>
+		<div v-if='this.$route.name != "article" && this.$route.name != "user" && this.$route.name != "publish" && (!token || (typeof author !== "object" || Object.keys(author).length === 0) ) '>
 			<div class="topic">CNode：Node.js专业中文社区</div>
 			<div class="content">
 				<p>您可以通过accessToken登入</p>
@@ -16,7 +16,9 @@
 						<router-link :to='{name:"user", params:{ user:author.name}}'>
 							<img :src="author.avatar">
 						</router-link>
-						{{author.name}}
+						<router-link :to='{name:"user", params:{ user:author.name}}'>
+							{{author.name}}
+						</router-link>
 					</div>
 					<strong>积分：{{author.score}}</strong>
 				</div>
@@ -52,11 +54,10 @@
 					if(i.startsWith('token=')){
 						token = i.split('=')[1]
 					}
-
 				}
 				
 				this.$store.dispatch('fetch_token', {accesstoken: token})
-						.catch( (e) => console.log(e))
+						.catch( e => console.log(e))
 			}
 		}
 	}
@@ -102,7 +103,7 @@
 				margin-top: 20px;
 			}
 
-			a{
+			button a{
 				color: #fff;
 			}
 		}

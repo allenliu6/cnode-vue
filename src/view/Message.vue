@@ -1,14 +1,8 @@
 <template>
     <div class="main">
 	    <div class="main-left">
-            <div class="loading" v-if='loading'>
-				<div>数据加载中...</div>
-			</div>
-
-			<div class="error" v-if='error'>
-				<div>数据错误</div>
-			</div>
-            <div v-if='post'>
+            <hint v-if='hint.show' :hint='hint'></hint>
+            <div v-else>
                 <div class="include" >
                     <div class="header">
                         新消息
@@ -62,9 +56,12 @@
 
 <script>
     import sideBar from '../components/sideBar'
+    import hint from '../components/hint'
+
     export default {
         components:{
-            sideBar
+            sideBar,
+            hint
         },
         computed:{
             user(){
@@ -75,28 +72,33 @@
             },
             messages(){
                 return this.$store.getters.getMessages
+            },
+            hint(){
+                return this.$store.getters.getHint
             }
         },
-        data(){
-            return {
-                post:'',
-                loading:true,
-                error:'',
-            }
+        created(){
+            this.$store.dispatch('hintInit')
         },
         mounted(){
-            const token = document.cookie.split('=')[1]
+            const arr = document.cookie.split(';');
+                let token = '';
+                for(let i of arr){
+                    i = i.trim()
+                    if(i.startsWith('token=')){
+                        token = i.split('=')[1]
+                    }
+                }
 
             this.$store.dispatch('fetch_messages', {token})
-                .then( (bool) => {
-						if (bool && typeof bool ==='boolean') {
-							this.loading = false;
-							this.post = true;
-						}else{
-							this.loading = false;
-							this.error = true;
-						}
-					})
+                //.catch( e => console.log(e) )
+        },
+        watch:{
+            user(val){
+                if(!val.name){
+                    this.$router.push({ name: 'index'})
+                }
+            }
         }
     }
 </script>

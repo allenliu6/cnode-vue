@@ -6,10 +6,10 @@ import Vue from 'vue'
 
 Vue.use(Vuex)
 const state = {
-	topicList: [],
+	topicList: [],//列表数组
 	currentPage: '',
 	currentTab: '',
-	article: {},
+	article: {},//文章、评论内容
 	author: {
 		name: '',
 		avatar: '',
@@ -17,9 +17,18 @@ const state = {
 	},//article data
 
 	user: {},//user data
+	/*
+	avatar_url:
+	create_at:"2014-08-29T15:42:20.010Z"
+	githubUsername:
+	loginname:
+	recent_replies:Array[4]
+	recent_topics:Array[15]
+	score:
+	 */
 
-	loginUser:'',
-	// {
+	loginUser:{},
+	// {登录用户
 	// 	id:'',
 	// 	name:'',
 	// 	avatar:'',

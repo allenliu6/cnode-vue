@@ -25,7 +25,7 @@ router.beforeEach((to, from, next) => {
 
 Vue.config.devtools = true;
 
-new Vue({
+const vm = new Vue({
   el: '#app',
   router,
   store,
