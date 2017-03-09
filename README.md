@@ -20,12 +20,11 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
  > 本项目是基于已有的[cnode中文社区](https://cnodejs.org "cnode中文社区主页")而写
 
     --build(配置webpack基本配置、开发环境配置、生产环境配置等)
-    --config(配置路径端口值等)
-    
-    --node_modules(依赖的模块)
-    --index.html(HTML框架)
-    --package.json(webpack配置文件)
-    --src(主文件目录)
+    --config(配置路径端口值等)  
+    --node_modules(依赖的模块)
+    --index.html(HTML框架)
+    --package.json(webpack配置文件)
+    --src(主文件目录)
     
     
     
