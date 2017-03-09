@@ -38,6 +38,5 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
     ------
 
 
-
-    最后感谢cnode社区的[API](https://cnodejs.org/api "cnode中文社区API页面")
+> `最后感谢cnode社区的[API](https://cnodejs.org/api "cnode中文社区API页面")`
     
