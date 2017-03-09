@@ -31,12 +31,17 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
     ----main.js(主逻辑代码，注册根组件、子组件以及集合单页应用配置信息)
     ----assets(外部导入文件)
     ----components(公共组件)
-    -------
+    -------backTop.vue(回到顶部组件)
+    -------footer.vue(脚部组件)
+    -------header.vue(头部组件，封装token自动登录功能以及退出功能)
+    -------hint.vue(提示消息组件)
+    -------sideBar.vue(侧边栏，包含登录以及作者用户信息显示)
     ----views(页面视图)
-    -------
+    -------Article.vue(帖子内容以及评论和评论发布)
     ----store(vuex的全部逻辑)
     ------
 
 
-> `最后感谢cnode社区的[API](https://cnodejs.org/api "cnode中文社区API页面")`
+> template和sass写得乱的一比>:逃 
+    最后感谢cnode社区的[API](https://cnodejs.org/api "cnode中文社区API页面")
     
