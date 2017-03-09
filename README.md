@@ -38,10 +38,19 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
     -------sideBar.vue(侧边栏，包含登录以及作者用户信息显示)
     ----views(页面视图)
     -------Article.vue(帖子内容以及评论和评论发布)
+    -------Home.vue(帖子列表、分类列表)
+    -------404.vue(错误路由提示并跳转首页)
+    -------Login.vue(登录)
+    -------Message.vue(登录后才有权限查看的页面)
+    -------Publish.vue(发布页面)
+    -------User.vue(用户页面，包括用户信息和用户发布话题参与话题)
     ----store(vuex的全部逻辑)
-    ------
+    ------actions(触发状态变更的函数，封装状态变更的其他行为)
+    ------getters(状态的对外接口)
+    ------index(状态初始化，以及状态管理store实例初始化)
+    ------mutations(状态变更提交的方法，真正改变状态的函数)
 
+> template和sass写得乱的一比(:逃
 
-> template和sass写得乱的一比>:逃 
     最后感谢cnode社区的[API](https://cnodejs.org/api "cnode中文社区API页面")
     
