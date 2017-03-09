@@ -31,7 +31,7 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
     
     
     
-      --APP.vue(单页应用的view和components集合)
+    --APP.vue(单页应用的view和components集合)
       --filter.js(封装过滤函数)
       --router.js(路由配置信息)
       --main.js(主逻辑代码，注册根组件、子组件以及集合单页应用配置信息)
