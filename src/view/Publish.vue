@@ -1,3 +1,5 @@
+<!-- question  -->
+
 <template>
     <div class="main">
         <div class="main-left">
@@ -27,7 +29,7 @@
             </div>
         </div>
         <div class="main-right">
-            <sideBar :author='loginUser'></sideBar>
+            <sideBar :author='loginUser' :judge='loginUser.name'></sideBar>
         </div>
     </div>
 </template>
@@ -64,6 +66,7 @@
 			submitReply(){
                 this.$store.dispatch('hintInit')
                 this.$store.dispatch('fetch_publish', {accesstoken:this.token, content: this.content, title: this.title, tab: this.type })
+                    //是否应该取消回调  统一数据来源  来源于getter
                     .then( json => {
                         if(json.success && typeof json.success === 'boolean'){
                             this.$router.push({ name: 'article', params: {id: json.topic_id}})
@@ -72,7 +75,7 @@
                     .catch( e => console.log(e) )
             }
 		},
-        
+        //若未登录或退出，则转回首页
         watch:{
             loginUser(val){
                 if((typeof loginUser !== "object" || Object.keys(loginUser).length === 0)){

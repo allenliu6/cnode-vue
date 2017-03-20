@@ -49,7 +49,7 @@
             </div>
 	    </div>
         <div class="main-right">
-            <sideBar :author='user'></sideBar>
+            <sideBar :author='user' :judge='user.name'></sideBar>
         </div>
     </div>
 </template>
@@ -91,7 +91,7 @@
                 }
 
             this.$store.dispatch('fetch_messages', {token})
-                //.catch( e => console.log(e) )
+                .catch( e => console.log(e) )
         },
         watch:{
             user(val){

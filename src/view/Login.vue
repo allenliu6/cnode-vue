@@ -18,7 +18,7 @@
             </div>
         </div>
         <div class="main-right">
-            <sideBar></sideBar>
+            <sideBar :judge='false'></sideBar>
         </div>
     </div>
 </template>
@@ -44,7 +44,6 @@
             hint(){
                 return this.$store.getters.getHint
             }
-           
         },
         methods:{
             tokenLength(){
@@ -58,20 +57,17 @@
                 }else{
                     this.$store.dispatch( 'check_token', true )
                 }
-               this.$store.dispatch('fetch_token', {accesstoken: this.tokenIn})
-                .then((bool) => {
-                    if (bool && typeof bool ==='boolean') {
-                        let date = new Date()
-                        date.setDate(date.getDate() + 7)
-                        document.cookie = `token=${this.tokenIn};expires=${date};`
-                    }
-                })
+                this.$store.dispatch('fetch_token', {accesstoken: this.tokenIn})
+                    .catch( e => console.log(e))
             },
 
         },
         watch:{
             loginMes(val){
                 if(val.name){
+                    let date = new Date()
+                        date.setDate(date.getDate() + 7)
+                        document.cookie = `token=${this.tokenIn};expires=${date};`
                     this.$router.push('/')
                 }
             }
