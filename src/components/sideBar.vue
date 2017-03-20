@@ -1,6 +1,6 @@
 <template>
 	<div class="sidebar">
-		<div v-if='this.$route.name != "article" && this.$route.name != "user" && this.$route.name != "publish" && (!token || (typeof author !== "object" || Object.keys(author).length === 0) ) '>
+		<div v-if='!judge'>
 			<div class="topic">CNode：Node.js专业中文社区</div>
 			<div class="content">
 				<p>您可以通过accessToken登入</p>
@@ -23,7 +23,7 @@
 					<strong>积分：{{author.score}}</strong>
 				</div>
 			</div>
-			<div class="content addMargin" v-if='loginUser'>
+			<div class="content addMargin" v-if='loginUser.name'>
 				<button>
 					<router-link to='/create'>发布话题</router-link>
 				</button>
@@ -36,7 +36,7 @@
 
 <script>
 	export default{
-		props:['author'],
+		props:['author','judge'],
 		computed: {
 			token(){
 				return this.$store.getters.getToken
