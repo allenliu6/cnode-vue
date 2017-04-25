@@ -20,9 +20,9 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
  > 本项目是基于已有的[cnode中文社区](https://cnodejs.org "cnode中文社区主页")而写
  
  
-    先介绍一下项目目录
+    先介绍一下项目目录  
     
-    ```
+```
     ├── build(配置webpack基本配置、开发环境配置、生产环境配置等)
     ├── config(配置路径端口值等)  
     ├── node_modules(依赖的模块)
@@ -53,7 +53,7 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
     │   │   ├──getters(状态的对外接口)
     │   │   ├──index(状态初始化，以及状态管理store实例初始化)
     │   │   ├──mutations(状态变更提交的方法，真正改变状态的函数)
-   ``` 
+``` 
 
   
 先说一下整个项目的概况  
