@@ -54,13 +54,12 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
     ------index(状态初始化，以及状态管理store实例初始化)
     ------mutations(状态变更提交的方法，真正改变状态的函数)
     
-    
-***
 
+  
 先说一下整个项目的概况  
 整个项目是在学vue后第一个有一个完整结构的项目吧，整体来说比较简单吧，算是一个缩略版缩水猥琐版cnodejs社区，主要就七大页面，基本保证用户功能的完整性，就是UI还有响应速度差了点，可以随意看帖子，发评论，发帖子，看用户信息，看自己的信息
 
-***
+  
 再说一下下一步的基本改进  
     首先从兼容和适配做起，进行一系列测试改进，同时简化优化sass代码，调整view中template代码，封装出组件  
     其次想进行一系列性能和安全优化  
@@ -70,9 +69,9 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
     代码优化  主视图不放置组件内容  将内容封装为组件  
     安全性问题  cookie安全  防御攻击  
     甚至智能化算法进行资源提前申请  
-***
-最后当然就是上线了~哇哈哈
-***
+  
+最后当然就是上线了~哇哈哈  
+
 template和sass写得乱的一比(:逃
 
     最后感谢cnode社区的[API](https://cnodejs.org/api "cnode中文社区API页面")
