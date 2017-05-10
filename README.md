@@ -2,12 +2,6 @@
 
 > cnodejs vue版,使用vue+vuex+vue-router+vue-cli开发，webpack模块打包
 
-
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
-
-    
- > 本项目是基于已有的[cnode中文社区](https://cnodejs.org "cnode中文社区主页")而写
- 
  
 ## 先介绍一下项目目录  
     
@@ -65,8 +59,6 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 
 template和sass写得乱的一比(:逃
 
-
-    
     
 ## Build Setup
 
@@ -81,4 +73,7 @@ npm run dev
 npm run build
 ```
 
-> 最后感谢cnode社区的[API](https://cnodejs.org/api "cnode中文社区API页面")
+For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+  
+> 最后感谢[cnode中文社区](https://cnodejs.org "cnode中文社区主页")的[API](https://cnodejs.org/api "cnode中文社区API页面")
