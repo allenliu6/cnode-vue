@@ -1,18 +1,7 @@
 # cnodejs
 
 > cnodejs vue版,使用vue+vuex+vue-router+vue-cli开发，webpack模块打包
-## Build Setup
 
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-```
 
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
@@ -20,7 +9,7 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
  > 本项目是基于已有的[cnode中文社区](https://cnodejs.org "cnode中文社区主页")而写
  
  
-    先介绍一下项目目录  
+## 先介绍一下项目目录  
     
 ```
     ├── build                                          -- 配置webpack基本配置、开发环境配置、生产环境配置等
@@ -56,13 +45,13 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 ``` 
 
   
-先说一下整个项目的概况  
+## 项目概况  
 ```
-        整个项目是在学vue后第一个有一个完整结构的项目吧，整体来说比较简单吧，算是一个缩略版缩水猥琐版cnodejs社区，主要就七大页面，基本保证用户功能的完整性，就是UI还有响应速度差了点，可以随意看帖子，发评论，发帖子，看其他用户信息，看自己的信息
-        ```
+    项目整体来说比较简单，算是一个缩略版缩水猥琐版cnodejs社区，主要就七大页面，基本保证用户功能的完整性，就是UI还有响应速度差了点，可以随意看帖子，发评论，发帖子，看其他用户信息，看自己的信息
+```
 
   
-再说一下下一步的基本改进
+## 下一步改进
 
 - 首先从兼容和适配做起，进行一系列测试改进，同时简化优化sass代码，调整view中template代码，封装出组件，当然做出移动端是必须的  
 - 其次想进行一系列性能和安全优化  
@@ -74,8 +63,22 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
     - 安全性问题  cookie安全  防御攻击  
     - 甚至智能化算法进行资源提前申请  
 
-
 template和sass写得乱的一比(:逃
 
-    最后感谢cnode社区的[API](https://cnodejs.org/api "cnode中文社区API页面")
+
     
+    
+## Build Setup
+
+``` bash
+# install dependencies
+npm install
+
+# serve with hot reload at localhost:8080
+npm run dev
+
+# build for production with minification
+npm run build
+```
+
+> 最后感谢cnode社区的[API](https://cnodejs.org/api "cnode中文社区API页面")
