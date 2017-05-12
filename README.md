@@ -1,6 +1,6 @@
 # cnodejs
 
-> cnodejs vue版,使用vue+vuex+vue-router+vue-cli开发，webpack模块打包
+> cnodejs-vue版,使用vue+vuex+vue-router+vue-cli+webpack
 
  
 ## 项目目录  
