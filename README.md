@@ -1,4 +1,4 @@
-# cnodejs
+# cnodejs-vue版
 
 > cnodejs-vue版,使用vue+vuex+vue-router+vue-cli+webpack
 
