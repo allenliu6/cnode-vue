@@ -1,6 +1,6 @@
 # cnodejs-vue版
 
-> cnodejs-vue版,使用vue+vuex+vue-router+vue-cli+webpack
+> [cnodejs-vue版](https://allenliu6.github.io/cnode-vue/ "cnodejs-vue版"),使用vue+vuex+vue-router+vue-cli+webpack
 
  
 ## 项目目录  
