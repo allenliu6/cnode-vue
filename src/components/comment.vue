@@ -16,24 +16,28 @@
 
 <script>
 	export default{
-		computed:{
-			token(){
-				return this.$store.getters.getToken
-			},
-		},
-		props:['id'],
-		methods: {
-			submitReply(){
-                this.$store.dispatch('fetch_reply', {token:this.token, content: this.replyContent, id:this.id})
-                    .catch( (e) => console.log(e))
-                this.replyContent = ''
-            }
-		},
 		data(){
 			return {
 				replyContent:'',
 			}
 		},
+		props:['id'],
+		computed:{
+			token(){
+				return this.$store.getters.getToken
+			},
+		},
+		methods: {
+			submitReply(){
+				this.replyContent += `
+有点自豪地采用 [cnode-vue](https://github.com/allenliu6/cnode-vue/) (:逃`
+
+                this.$store.dispatch('fetch_reply', {token:this.token, content: this.replyContent, id:this.id})
+                    .catch( (e) => console.log(e))
+                this.replyContent = ''
+            }
+		},
+		
 	}
 </script>
 

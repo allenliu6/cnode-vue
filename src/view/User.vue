@@ -72,7 +72,7 @@
 				
 		</div>
 		<div class="main-right">
-			<sideBar :author='{"name":author.loginname,"avatar":author.avatar_url,"score":author.score}'></sideBar>
+			<sideBar :author='{"name":author.loginname,"avatar":author.avatar_url,"score":author.score}' :judge='author.loginname'></sideBar>
 		</div>
 	</div>
 </template>
@@ -103,13 +103,7 @@
 		created(){
 			this.$store.dispatch('hintInit')
 			this.getData(this.$route.params.user);
-		},
-		watch: {
-			$route : function(val){
-				this.getData(val.params.user)
-			}
-		},
-		
+		}
 	}
 </script>
 

@@ -1,94 +1,103 @@
 <template>
-<div class="main">
-	<div class="main-left">
-		<div class="navlist">
-			<router-link v-for='tab in tabs' :class='currentTab === tab.ename ? "navSelect" : "navNormal"' :to='{name: "tab", params: {tab: tab.ename, page: 1 }}'>
-				{{tab.name}}
-			</router-link>
-		</div>
-		
-		<hint v-if='hint.show' :hint='hint'></hint>
+	<div class="main">
+		<div class="main-left">
+			<div class="navlist">
+				<router-link v-for='tab in tabs' :class='currentTab === tab ? "navSelect" : "navNormal"' :to='{name: "tab", params: {tab, page: 1 }}'>
+					{{tab | transTab}}
+				</router-link>
+			</div>
 			
-		<div v-else>
-			<list :items='items'></list>
-			<pagination :page='currentPage' :tab='currentTab'></pagination>
+			<hint v-if='hint.show' :hint='hint'></hint>
+				
+			<div v-else>
+				<list :items='items'></list>
+			</div>
+		</div>
+
+		<div class="main-right">
+			<sideBar :author = 'user' :judge = 'user.name'></sideBar>
 		</div>
 	</div>
-
-      <div class="main-right">
-        <sideBar :author = 'user' :judge = 'user.name'></sideBar>
-      </div>
-</div>
-
 </template>
 
 <script>
 	import sideBar from '../components/sideBar'
 	import hint from '../components/hint'
 	import list from '../components/list'
-	import pagination from '../components/pagination'
+	import {mapGetters} from 'vuex'
 	
 	export default {
 		data(){
 			return {
-				tabs: [{
-				    name: '全部',
-				    ename: 'all',
-				  }, {
-				    name: '精华',
-				    ename: 'good',
-				  }, {
-				    name: '分享',
-				    ename: 'share',
-				  }, {
-				    name: '问答',
-				    ename: 'ask',
-				  }, {
-				    name: '招聘',
-				    ename: 'job',
-				  }],
+				tabs: ['all', 'good', 'share', 'ask', 'job'],
+				timer: false
 			}
 		},
 		components: {
 			sideBar,
 			hint,
 			list,
-			pagination
 		},
 		computed: {
-			items(){
-				return this.$store.getters.getTopicList
-			},
-			currentPage(){
-				return parseInt(this.$route.params.page) || 1
-			},
 			currentTab(){
 				return this.$route.params.tab || 'all'
 			},
-			user(){
-				return this.$store.getters.getLoginUser
-			},
-			hint(){
-				return this.$store.getters.getHint
-			},
+			...mapGetters({
+				items: 'getTopicList',
+				user: 'getLoginUser',
+				hint: 'getHint',
+				currentPage: 'getCurrentPage'
+			})
 		},
 		created(){
-			this.changeStatus( this.currentTab, this.currentPage )
+			this.getListInfo(1)
+			document.addEventListener('scroll', this.scrollListen)
 		},
-		methods:{
-			changeStatus( tab, page ){
-				document.body.scrollTop = 0;
-				this.$store.dispatch('hintInit')
-				this.$store.dispatch("fetch_list", {tab, page} )
-					.catch( (e) => console.log(e))
-			},
-		},
-		//观察路由变化 随之改变数据
-		watch: {
-			$route : function(val){
-				this.changeStatus(val.params.tab, val.params.page )
+		watch:{
+			$route(newval, oldval){
+				if(newval.params.tab && oldval.params.tab !== newval.params.tab){
+					this.getListInfo(1)
+				}
 			}
 		},
+		methods:{
+			getListInfo(page){
+				this.$store.dispatch('hintInit')
+				this.$store.dispatch("fetch_list", {tab: this.currentTab, page} )
+						.catch( (e) => console.log(e))
+			},
+			scrollListen(){
+				if(!this.timer){
+					let top = document.body.scrollTop,
+						height = document.body.scrollHeight,
+						that = this
+
+					top = top + document.documentElement.clientHeight
+					
+					this.timer = true
+					if(top > height * 0.8){
+						this.$store.dispatch("fetch_list", {tab: this.currentTab, page: this.currentPage + 1} )
+								.then(() => {
+									//加强节流
+									setTimeout(function(){
+										that.timer = false
+										that.scrollListen()
+									}, 1000)
+								})
+								.catch( (e) => console.log(e))
+						
+						return 
+					}
+
+					//普通节流
+					setTimeout(function(){
+						that.timer = false
+						that.scrollListen()
+					}, 300)
+					
+				}
+			}
+		}
 	}
 
 </script>

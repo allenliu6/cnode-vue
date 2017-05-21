@@ -30,7 +30,9 @@
 					<router-link :to='{name:"user", params:{ user:reply.author.loginname}}'>
 						<img :src="reply.author.avatar_url" alt="">
 					</router-link>
-					<span>{{reply.author.loginname}}</span>
+					<router-link :to='{name:"user", params:{ user:reply.author.loginname}}'>
+						<span>{{reply.author.loginname}}</span>
+					</router-link>
 					<span class="blueColor">{{index+1}}楼</span>
 					<span class="blueColor">{{reply.create_at | timeToNow}}</span>
 				</div>

@@ -16,8 +16,10 @@ Vue.filter( 'transTab', transTab );
 Vue.use(VueRouter)
 
 const router = new VueRouter({
+	mode: 'history',
 	routes
 })
+
 router.beforeEach((to, from, next) => {
 	document.body.scrollTop = 0;
 	next()
@@ -25,7 +27,7 @@ router.beforeEach((to, from, next) => {
 
 Vue.config.devtools = true;
 
-const vm = new Vue({
+var vm = new Vue({
   el: '#app',
   router,
   store,

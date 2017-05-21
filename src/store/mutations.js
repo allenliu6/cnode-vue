@@ -1,10 +1,14 @@
 export default {
 	FETCH_LIST_SUCCESS( state, {data, tab, page} ){
-		state.topicList = data;
+		if(state.currentTab === tab && state.currentPage === page - 1){
+			state.topicList = state.topicList.concat(data)
+		}else{
+			state.topicList = data
+			state.hint.show = false
+		}
 		state.currentPage = page;
 		state.currentTab = tab;
-		state.hint.show = false
-		//console.log(data, tab, page)
+		console.log(state.topicList, data, tab, page)
 	},
 	FETCH_LIST_FAILURE(state, tab, page){
 		state.hint.status = 'error'
@@ -42,6 +46,11 @@ export default {
 	FETCH_TOKEN_SUCCESS( state, {data, token} ){
 		state.loginUser = {name: data.loginname, avatar: data.avatar_url, id:data.id}
 		state.token = token
+		state.hint = {
+			show: true,
+			info: '',
+			status: 'loading'
+		}
 	},
 	CHECK_TOKEN( state, bool ){
 		state.hint = {

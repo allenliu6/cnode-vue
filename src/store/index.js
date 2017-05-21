@@ -7,7 +7,7 @@ import Vue from 'vue'
 Vue.use(Vuex)
 const state = {
 	topicList: [],//列表数组
-	currentPage: '',
+	currentPage: 0,
 	currentTab: '',
 	article: {},//文章、评论内容
 	author: {
@@ -50,7 +50,6 @@ const store = new Vuex.Store({
 	mutations,
 	actions,
 	strict:true,
-
 })
 
 export default store

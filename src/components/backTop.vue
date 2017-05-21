@@ -1,5 +1,5 @@
 <template>
-	<div class="backTop" @click='backTop' v-if='show'>
+	<div class="backTop" @click='backTop' v-if='show' v-once>
 		返回顶部
 	</div>
 </template>

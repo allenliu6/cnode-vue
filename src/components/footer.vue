@@ -1,6 +1,6 @@
 <template>
 <footer>
-	<div>
+	<div v-once>
 		<a href="https://github.com/allenliu6/cnode-vue">RSS</a>
 		|
 		<a href="https://github.com/allenliu6/cnode-vue">源码</a>

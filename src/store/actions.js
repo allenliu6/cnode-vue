@@ -1,9 +1,10 @@
 //封装fetch读改数据时的状态?    是否必要   
 //为pormise添加catch     已搞定
 //state未能管理全部状态要包括单个页面的状态   回顾全部页面逻辑代码分类迁移  已搞定
+//
+//slot分发内容实现多态  sidebar内容不定，无法分发    keep-live不行，需动态渲染  将sidebar状态判断改到父组件中判断 已搞定不过有个bug，sideBar刷新延迟会出现上次view的内容
+//动画   检错机制
 
-
-//hint机制不仅是优化用户体验，更是留给数据读取时间的机制
 
 //http方法失败不会导致fetch方法返回rejected值
 //封装post方法  参数为post请求的url即文件类别   请求的具体内容
@@ -84,7 +85,6 @@ export const fetch_author = ( {commit}, {name}) => {
 			return Promise.reject(new Error("get article's author failure"))
 		})
 		.catch( error => {
-
 			return Promise.reject(error)
 		})
 }
@@ -111,7 +111,6 @@ export const fetch_loginMes = ({commit}, {name}) => {
 				return commit( 'FETCH_LOGIN_SUCCESS', {score: json.data.score})
 			}
 			return Promise.reject(new Error("get loginUser's messages failure"))
-			
 		})
 		.catch( error => {
 			commit( 'FETCH_LOGIN_FAILURE' )
@@ -123,8 +122,9 @@ export const fetch_token = ({commit,dispatch}, {accesstoken}) => {
 	return _post('accesstoken', {accesstoken})
 		.then( json => {
 			if(json.success) {
-				commit( 'FETCH_TOKEN_SUCCESS', {data: json, token: accesstoken})
-				return dispatch( 'fetch_loginMes', {name:json.loginname})
+				//直接进行另一个dispatch，根据hint进行报错
+				dispatch( 'fetch_loginMes', {name:json.loginname})
+				return commit( 'FETCH_TOKEN_SUCCESS', {data: json, token: accesstoken})
 			}
 			return Promise.reject(new Error('login failure by token'))
 		})

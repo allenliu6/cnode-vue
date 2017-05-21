@@ -13,3 +13,7 @@ export const getUser = state => state.user
 export const getMessages = state => state.messages
 
 export const getHint = state => state.hint
+
+export const getCurrentPage = state => state.currentPage
+
+export const getCurrentTab = state => state.currentTab

@@ -5,13 +5,13 @@
 		</div>
 		<ul class="list">
 			<li>
-				<router-link to='/'>首页</router-link>
+				<router-link :to='{name: "index"}'>首页</router-link>
 			</li>
 			<li v-if='typeof user === "object" && Object.keys(user).length > 0'>
-				<router-link to='/message'>未读消息</router-link>
+				<router-link :to='{name: "message"}'>未读消息</router-link>
 			</li>
 			<li v-if='typeof user !== "object" || Object.keys(user).length === 0'>
-				<router-link to='/login'>登录</router-link>
+				<router-link :to='{name: "login"}'>登录</router-link>
 			</li>
 			<li v-else>
 				<a @click='quit()'>退出</a>

@@ -25,7 +25,7 @@
 			</div>
 			<div class="content addMargin" v-if='loginUser.name'>
 				<button>
-					<router-link to='/create'>发布话题</router-link>
+					<router-link :to='{name: "publish"}'>发布话题</router-link>
 				</button>
 			</div>
 		</div>

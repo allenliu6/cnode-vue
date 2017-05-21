@@ -68,7 +68,7 @@
                     let date = new Date()
                         date.setDate(date.getDate() + 7)
                         document.cookie = `token=${this.tokenIn};expires=${date};`
-                    this.$router.push('/')
+                    this.$router.push({name: 'index'})
                 }
             }
         }
