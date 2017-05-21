@@ -13,8 +13,8 @@
     ├── package.json                                   -- webpack配置文件
     ├── src                                            -- 主文件目录
     │   ├── APP.vue                                    -- 单页应用的view和components集合
-    │   ├── filter.js                                  -- 封装过滤函数
-    │   ├── router.js                                  -- 路由配置信息
+    │   ├── filter.js                                  -- 封装全局函数
+    │   ├── router.js                                  -- 路由配置信息
     │   ├── main.js                                    -- 主逻辑代码，注册根组件、子组件以及集合单页应用配置信息
     │   ├── assets                                     -- 外部导入文件
     │   ├── components                                 -- 公共组件
