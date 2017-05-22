@@ -49,8 +49,6 @@
 - 其次想进行一系列性能和安全优化  
     - ~~SPA在github page路由失效BUG~~  根据[github page单页应用解决方案](https://github.com/rafrex/spa-github-pages)  
     - ~~分页渲染优化，按需加载、延迟加载、预加载、请求合并~~   改为下拉刷新  
-    - 缓存相关的浏览器缓存利用，缓存更新、缓存共享、非覆盖式发布等方案  
-    - 还有复杂的BigRender、BigPipe、Quickling、PageCache等技术  
     - 安全性问题  cookie安全  防御攻击  
     - 甚至智能化算法进行资源提前申请  
 
