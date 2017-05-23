@@ -8,7 +8,7 @@ export default {
 		}
 		state.currentPage = page;
 		state.currentTab = tab;
-		console.log(state.topicList, data, tab, page)
+		//console.log(state.topicList, data, tab, page)
 	},
 	FETCH_LIST_FAILURE(state, tab, page){
 		state.hint.status = 'error'

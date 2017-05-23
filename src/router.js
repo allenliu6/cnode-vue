@@ -6,47 +6,46 @@ import Message from './view/Message'
 import Publish from './view/Publish'
 import NotFound from './view/404'
 
-let domain = ''
 
 export default [
 	{	
 		name: 'index',
-		path: `${domain}/`,
+		path: `/`,
 		component: Home
 	},
 	{
 		name: 'tab',
-		path: `${domain}/tab/:tab/`,
+		path: `/tab/:tab/`,
 		component: Home
 	},
 	{
 		name: 'article',
-		path: `${domain}/post/:id`,
+		path: `/post/:id`,
 		component: Article
 	},
 	{
 		name: 'user',
-		path: `${domain}/user/:user`,
+		path: `/user/:user`,
 		component: User
 	},
 	{
 		name: 'login',
-		path: `${domain}/login`,
+		path: `/login`,
 		component: Login
 	},
 	{
 		name: 'message',
-		path: `${domain}message`,
+		path: `/message`,
 		component: Message
 	},
 	{
 		name: 'publish',
-		path: `${domain}create`,
+		path: `/create`,
 		component: Publish
 	},
 	{ 	
 		name: '404',
-		path: `${domain}*`, 
+		path: `*`, 
 		component: NotFound 
 	},
 ]

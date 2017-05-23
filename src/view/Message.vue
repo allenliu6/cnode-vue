@@ -57,6 +57,7 @@
 <script>
     import sideBar from '../components/sideBar'
     import hint from '../components/hint'
+    import {mapGetters} from 'vuex'
 
     export default {
         components:{
@@ -64,34 +65,28 @@
             hint
         },
         computed:{
-            user(){
-				return this.$store.getters.getLoginUser
-			},
-            token(){
-                return this.$store.getters.getToken
-            },
-            messages(){
-                return this.$store.getters.getMessages
-            },
-            hint(){
-                return this.$store.getters.getHint
-            }
+            ...mapGetters({
+                messages: 'getMessages',
+                token: 'getToken',
+                hint: 'getHint',
+                user: 'getLoginUser'
+            })
         },
         created(){
             this.$store.dispatch('hintInit')
-        },
-        mounted(){
             const arr = document.cookie.split(';');
-                let token = '';
-                for(let i of arr){
-                    i = i.trim()
-                    if(i.startsWith('token=')){
-                        token = i.split('=')[1]
-                    }
+            let token = '';
+            for(let i of arr){
+                i = i.trim()
+                if(i.startsWith('token=')){
+                    token = i.split('=')[1]
                 }
+            }
 
-            this.$store.dispatch('fetch_messages', {token})
-                .catch( e => console.log(e) )
+            if(!this.messages.has_read_messages || this.token !== token){
+                 this.$store.dispatch('fetch_messages', {token})
+                    .catch( e => console.log(e) )
+            }
         },
         watch:{
             user(val){

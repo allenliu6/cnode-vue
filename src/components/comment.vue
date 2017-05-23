@@ -4,12 +4,11 @@
 			添加回复
 		</div>
 		<div class="comment">
-			<!-- <hint></hint> -->
-			<textarea v-model='replyContent'></textarea>
+			<textarea v-model='replyContent' @keyup.enter = 'submitReply()'></textarea>
 			<div class="countInfo">
 
 			</div>
-			<button @click='submitReply'>提交</button>
+			<button @click='submitReply()'>提交</button>
 		</div>
 	</div>
 </template>
@@ -18,7 +17,7 @@
 	export default{
 		data(){
 			return {
-				replyContent:'',
+				replyContent: '',
 			}
 		},
 		props:['id'],
@@ -29,12 +28,14 @@
 		},
 		methods: {
 			submitReply(){
-				this.replyContent += `
+				if(this.replyContent){
+					this.replyContent += `
 有点自豪地采用 [cnode-vue](https://github.com/allenliu6/cnode-vue/) (:逃`
 
-                this.$store.dispatch('fetch_reply', {token:this.token, content: this.replyContent, id:this.id})
-                    .catch( (e) => console.log(e))
-                this.replyContent = ''
+					this.$store.dispatch('fetch_reply', {token:this.token, content: this.replyContent, id:this.id})
+						.catch( (e) => console.log(e))
+					this.replyContent = ''
+				}
             }
 		},
 		
@@ -45,7 +46,6 @@
 	.commentHeader{
 			background-color: #f6f6f6;
 			padding: 10px;
-
 		}
 
 		.comment{

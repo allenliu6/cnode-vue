@@ -24,6 +24,7 @@
 	import hint from '../components/hint'
 	import artcontent from '../components/content'
 	import comment from '../components/comment'
+	import {mapGetters} from 'vuex'
 
 	export default {
 		components: {
@@ -33,23 +34,19 @@
 			comment
 		},
 		computed: {
-			article(){
-				return this.$store.getters.getArticle
-			},
-			author(){
-				return this.$store.getters.getAuthor
-			},
-			loginUser(){
-				return this.$store.getters.getLoginUser
-			},
-			hint(){
-				return this.$store.getters.getHint
-			}
+			...mapGetters({
+				article: 'getArticle',
+				author: 'getAuthor',
+				loginUser: 'getLoginUser',
+				hint: 'getHint'
+			})
 		},
 		created(){
-			this.$store.dispatch('hintInit')
-			this.$store.dispatch( 'fetch_article', {id: this.$route.params.id} )
-				.catch( (e) => console.log(e))
+			if(this.$route.params.id !== this.article.id){
+				this.$store.dispatch('hintInit')
+				this.$store.dispatch( 'fetch_article', {id: this.$route.params.id} )
+					.catch( (e) => console.log(e))
+			}
 		}
 	}
 </script>

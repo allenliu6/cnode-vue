@@ -26,6 +26,7 @@
 <script>
     import sideBar from '../components/sideBar'
     import hint from '../components/hint'
+    import {mapGetters} from 'vuex'
 
     export default {
         components: {
@@ -38,12 +39,10 @@
             }
         },
         computed:{
-            loginMes(){
-                return this.$store.getters.getLoginUser
-            },
-            hint(){
-                return this.$store.getters.getHint
-            }
+            ...mapGetters({
+                hint: 'getHint',
+                loginMes: 'getLoginUser',
+            })
         },
         methods:{
             tokenLength(){

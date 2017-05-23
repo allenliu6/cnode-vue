@@ -1,47 +1,45 @@
 <template>
-<div>
-	
-	<div class="panel">
-		<div class="artHeader addPadding">
-			<h2>
-				<span class="topicSign shine" v-if="article.top">置顶</span>
-				<span class="topicSign shine" v-else-if="article.good">精华</span>
-				{{article.title}}
-			</h2>
-			<div class='info'>
-				<span>发布于{{article.create_at | timeToNow}}之前</span>
-				<!-- <span>作者{{article.author.loginname}}</span> -->
- 				<span>浏览{{article.visit_count}}</span>
-				<span>来自{{article.tab | transTab}}</span>
-			</div>
-		</div>
-		<div class="markdown-body addPadding" v-html='article.content'></div>
-	</div>
-
-	<div class="cut"></div>
-
-	<div class="panel">
-		<div class="commentHeader">
-			{{article.reply_count}}条评论
-		</div>
-		<div class="addLine" v-for='(reply, index) in article.replies'>
-			<div class="replyHeader">
-				<div class="headerLeft">
-					<router-link :to='{name:"user", params:{ user:reply.author.loginname}}'>
-						<img :src="reply.author.avatar_url" alt="">
-					</router-link>
-					<router-link :to='{name:"user", params:{ user:reply.author.loginname}}'>
-						<span>{{reply.author.loginname}}</span>
-					</router-link>
-					<span class="blueColor">{{index+1}}楼</span>
-					<span class="blueColor">{{reply.create_at | timeToNow}}</span>
+	<div>
+		<div class="panel">
+			<div class="artHeader addPadding">
+				<h2>
+					<span class="topicSign shine" v-if="article.top">置顶</span>
+					<span class="topicSign shine" v-else-if="article.good">精华</span>
+					{{article.title}}
+				</h2>
+				<div class='info'>
+					<span>发布于{{article.create_at | timeToNow}}之前</span>
+					<!-- <span>作者{{article.author.loginname}}</span> -->
+					<span>浏览{{article.visit_count}}</span>
+					<span>来自{{article.tab | transTab}}</span>
 				</div>
-			</div>	
-			<div class="addPadding" v-html='reply.content'></div>
+			</div>
+			<div class="markdown-body addPadding" v-html='article.content'></div>
 		</div>
-	</div> 	
 
-</div>
+		<div class="cut"></div>
+
+		<div class="panel">
+			<div class="commentHeader">
+				{{article.reply_count}}条评论
+			</div>
+			<div class="addLine" v-for='(reply, index) in article.replies'>
+				<div class="replyHeader">
+					<div class="headerLeft">
+						<router-link :to='{name:"user", params:{ user:reply.author.loginname}}'>
+							<img :src="reply.author.avatar_url" alt="">
+						</router-link>
+						<router-link :to='{name:"user", params:{ user:reply.author.loginname}}'>
+							<span>{{reply.author.loginname}}</span>
+						</router-link>
+						<span class="blueColor">{{index+1}}楼</span>
+						<span class="blueColor">{{reply.create_at | timeToNow}}</span>
+					</div>
+				</div>	
+				<div class="addPadding" v-html='reply.content'></div>
+			</div>
+		</div> 	
+	</div>
 </template>
 
 <script>

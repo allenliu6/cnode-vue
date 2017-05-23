@@ -37,7 +37,7 @@
 <script>
     import sideBar from '../components/sideBar'
     import hint from '../components/hint'
-    import {transTab} from '../filter'
+    import {mapGetters} from 'vuex'
 
 	export default {
 		data(){
@@ -48,15 +48,11 @@
 			}
 		},
         computed:{
-            loginUser(){
-                return this.$store.getters.getLoginUser
-            },
-            token(){
-                return this.$store.getters.getToken
-            },
-            hint(){
-                return this.$store.getters.getHint
-            }
+            ...mapGetters({
+                loginUser: 'getLoginUser',
+                token: 'getToken',
+                hint: 'getHint'
+            })
         },
         components:{
             sideBar,

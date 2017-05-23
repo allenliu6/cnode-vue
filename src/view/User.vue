@@ -80,29 +80,40 @@
 <script>
 	import sideBar from '../components/sideBar'
 	import hint from '../components/hint'
+	import {mapGetters} from 'vuex'
 
 	export default{
 		components: {
 			sideBar,
 			hint,
 		},
-		computed:{
-			author(){
-				return this.$store.getters.getUser
+		computed: {
+			username(){
+				return this.$route.params.user
 			},
-			hint(){
-                return this.$store.getters.getHint
-            }
+			...mapGetters({
+				author: 'getUser',
+				hint: 'getHint',
+			})
 		},
-		methods:{
+		methods: {
 			getData(user){
-				 this.$store.dispatch('fetch_user', {user})
+				this.$store.dispatch('hintInit')
+				this.$store.dispatch('fetch_user', {user})
 					.catch( e => console.log(e) )
 			}
 		},
 		created(){
-			this.$store.dispatch('hintInit')
-			this.getData(this.$route.params.user);
+			if(this.author.loginname !== this.username){
+				this.getData(this.username)
+			}
+		},
+		watch: {
+			$route(){
+				if(this.author.loginname !== this.username){
+					this.getData(this.username)
+				}
+			}
 		}
 	}
 </script>

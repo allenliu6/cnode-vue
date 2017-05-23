@@ -2,7 +2,7 @@
 	<div class="main">
 		<div class="main-left">
 			<div class="navlist">
-				<router-link v-for='tab in tabs' :class='currentTab === tab ? "navSelect" : "navNormal"' :to='{name: "tab", params: {tab, page: 1 }}'>
+				<router-link v-for='tab in tabs' :class='tab === tab ? "navSelect" : "navNormal"' :to='{name: "tab", params: {tab}}'>
 					{{tab | transTab}}
 				</router-link>
 			</div>
@@ -30,7 +30,8 @@
 		data(){
 			return {
 				tabs: ['all', 'good', 'share', 'ask', 'job'],
-				timer: false
+				timer: false,
+				lastPage: 0
 			}
 		},
 		components: {
@@ -39,19 +40,24 @@
 			list,
 		},
 		computed: {
-			currentTab(){
+			tab(){
 				return this.$route.params.tab || 'all'
+			},
+			currentPage(){
+				return this.lastPage = this.$store.getters.getCurrentPage
 			},
 			...mapGetters({
 				items: 'getTopicList',
 				user: 'getLoginUser',
 				hint: 'getHint',
-				currentPage: 'getCurrentPage'
+				currentTab: 'getCurrentTab'
 			})
 		},
 		created(){
-			this.getListInfo(1)
-			document.addEventListener('scroll', this.scrollListen)
+			if(this.currentPage <= 0 || this.tab !== this.currentTab){
+				this.getListInfo(1)
+				document.addEventListener('scroll', this.scrollListen)
+			}
 		},
 		watch:{
 			$route(newval, oldval){
@@ -63,20 +69,21 @@
 		methods:{
 			getListInfo(page){
 				this.$store.dispatch('hintInit')
-				this.$store.dispatch("fetch_list", {tab: this.currentTab, page} )
+				this.$store.dispatch("fetch_list", {tab: this.tab, page} )
 						.catch( (e) => console.log(e))
 			},
 			scrollListen(){
 				if(!this.timer){
+					this.timer = true
 					let top = document.body.scrollTop,
 						height = document.body.scrollHeight,
 						that = this
 
 					top = top + document.documentElement.clientHeight
 					
-					this.timer = true
-					if(top > height * 0.8){
-						this.$store.dispatch("fetch_list", {tab: this.currentTab, page: this.currentPage + 1} )
+					if(top > height * 0.8 && this.lastPage === this.currentPage){
+						this.lastPage++
+						this.$store.dispatch("fetch_list", {tab: this.tab, page: this.currentPage + 1} )
 								.then(() => {
 									//加强节流
 									setTimeout(function(){
