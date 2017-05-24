@@ -52,9 +52,6 @@
     - 安全性问题  cookie安全  防御攻击  
     - 甚至智能化算法进行资源提前申请  
 
-
-template和sass写得乱的一比(:逃
-
     
 ## Build Setup
 
