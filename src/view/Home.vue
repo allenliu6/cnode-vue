@@ -85,7 +85,7 @@
 						this.lastPage++
 						this.$store.dispatch("fetch_list", {tab: this.tab, page: this.currentPage + 1} )
 								.then(() => {
-									//加强节流  
+									//加强节流   
 									setTimeout(function(){
 										that.timer = false
 										that.scrollListen()
