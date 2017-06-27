@@ -1,9 +1,7 @@
-<<<<<<< HEAD
 # cnodejs
 
 > cnodejs vue版,使用vue+vuex+vue-router+vue-cli开发
 
-=======
 # cnodejs-vue版
 
 > [cnodejs-vue版](https://allenliu6.github.io/cnode-vue/ "cnodejs-vue版"),使用vue+vuex+vue-router+vue-cli+webpack
@@ -59,7 +57,6 @@
     - 甚至智能化算法进行资源提前申请  
 
     
->>>>>>> 856f1f213b6beac8937ffbe5138c09d158d69cc8
 ## Build Setup
 
 ``` bash
@@ -74,9 +71,6 @@ npm run build
 ```
 
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
-<<<<<<< HEAD
-=======
 
   
 > 最后感谢[cnode中文社区](https://cnodejs.org "cnode中文社区主页")的[API](https://cnodejs.org/api "cnode中文社区API页面")
->>>>>>> 856f1f213b6beac8937ffbe5138c09d158d69cc8
