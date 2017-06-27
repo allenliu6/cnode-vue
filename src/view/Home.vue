@@ -91,6 +91,7 @@
 										that.scrollListen()
 									}, 1000)
 								})
+								
 								.catch( (e) => console.log(e))
 						
 						return 
