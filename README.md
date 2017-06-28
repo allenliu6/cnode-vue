@@ -70,7 +70,10 @@ npm run dev
 npm run build
 ```
 
+
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
+  
+  
   
 > 最后感谢[cnode中文社区](https://cnodejs.org "cnode中文社区主页")的[API](https://cnodejs.org/api "cnode中文社区API页面")
