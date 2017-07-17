@@ -6,7 +6,7 @@
 		<div class="comment">
 			<textarea v-model='replyContent' @keyup.enter = 'submitReply()'></textarea>
 			<div class="countInfo">
-
+				字数：<span>{{replyCount}}</span>
 			</div>
 			<button @click='submitReply()'>提交</button>
 		</div>
@@ -17,23 +17,28 @@
 	export default{
 		data(){
 			return {
-				replyContent: '',
+				replyContent: ''
 			}
 		},
-		props:['id'],
+		props:{
+			id: String
+		},
 		computed:{
 			token(){
 				return this.$store.getters.getToken
 			},
+			replyCount(){
+				return this.replyContent.length
+			}
 		},
 		methods: {
 			submitReply(){
-				if(this.replyContent){
+				if(this.replyCount){
 					this.replyContent += `
 有点自豪地采用 [cnode-vue](https://github.com/allenliu6/cnode-vue/) (:逃`
 
 					this.$store.dispatch('fetch_reply', {token:this.token, content: this.replyContent, id:this.id})
-						.catch( (e) => console.log(e))
+						.catch( (e) => {throw new Error(e.name + ": " + e.message)})
 					this.replyContent = ''
 				}
             }

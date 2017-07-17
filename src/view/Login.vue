@@ -10,7 +10,7 @@
                 </div>
                 <div class="login">
                         accessToken:
-                        <input @keyup.enter = 'checkToken()' @change='tokenLength()' v-model='tokenIn' class="loginText" type="text" placeholder="请输入accessToken">
+                        <input @keyup.enter = 'checkToken()' @change='tokenLength()' v-model='tokenInput' class="loginText" type="text" placeholder="请输入accessToken">
                         <div>
                             <input @click='checkToken()' type="button" value="登入" class="loginBtn">
                         </div> 
@@ -18,7 +18,7 @@
             </div>
         </div>
         <div class="main-right">
-            <sideBar :judge='false'></sideBar>
+            <sideBar :is-login='!!loginMes.id'></sideBar>
         </div>
     </div>
 </template>
@@ -26,7 +26,6 @@
 <script>
     import sideBar from '../components/sideBar'
     import hint from '../components/hint'
-    import {mapGetters} from 'vuex'
 
     export default {
         components: {
@@ -35,40 +34,38 @@
         },
         data(){
             return {
-                tokenIn:''
+                tokenInput: ''
             }
         },
         computed:{
-            ...mapGetters({
-                hint: 'getHint',
-                loginMes: 'getLoginUser',
-            })
+            hint(){
+                return this.$store.getters.getHint
+            },
+            loginMes(){
+                let user = this.$store.getters.getLoginUser
+                if(user.id){
+                    let date = new Date()
+                    date.setDate(date.getDate() + 7)
+                    document.cookie = `token=${this.tokenInput};expires=${date};`
+                    this.$router.push({name: 'index'})
+                }
+                return user
+            }
         },
         methods:{
             tokenLength(){
-                this.$store.dispatch( 'check_token', this.tokenIn.length === 36 )
+                this.$store.dispatch( 'check_token', this.tokenInput.length === 36 )
             },
             checkToken(){
                 this.$store.dispatch('hintInit')
-                if(this.tokenIn.length !== 36){
+                if(this.tokenInput.length !== 36){
                     this.$store.dispatch( 'check_token', false )
                     return 
                 }else{
                     this.$store.dispatch( 'check_token', true )
                 }
-                this.$store.dispatch('fetch_token', {accesstoken: this.tokenIn})
-                    .catch( e => console.log(e))
-            },
-
-        },
-        watch:{
-            loginMes(val){
-                if(val.name){
-                    let date = new Date()
-                        date.setDate(date.getDate() + 7)
-                        document.cookie = `token=${this.tokenIn};expires=${date};`
-                    this.$router.push({name: 'index'})
-                }
+                this.$store.dispatch('fetch_token', {accesstoken: this.tokenInput})
+                    .catch( e => {throw new Error(e.name + ": " + e.message)})
             }
         }
     }

@@ -37,7 +37,11 @@ export const transTab = (tab) => {
 		case 'ask':
 			str = '问答';
 			break;
+		case 'dev':
+			str = '测试';
+			break;
 		default:
+			str = '全部';
 	}
 	return str;
 };

@@ -74,6 +74,7 @@ export default {
 
 	FETCH_QUIT_SUCCESS( state ){
 		state.loginUser = {}
+		state.user = {}
 	},
 
 	FETCH_MESSAGE_SUCCESS( state, {data} ){

@@ -24,8 +24,8 @@
                     </div>
                 </div>
 
-                    <div class="cut">
-                    </div>
+                <div class="cut">
+                </div>
 
                 <div class="include">
                     <div class="header">
@@ -49,7 +49,7 @@
             </div>
 	    </div>
         <div class="main-right">
-            <sideBar :author='user' :judge='user.name'></sideBar>
+            <sideBar :person-info = "loginUser" :is-login = "!!loginUser.id"></sideBar>
         </div>
     </div>
 </template>
@@ -69,30 +69,15 @@
                 messages: 'getMessages',
                 token: 'getToken',
                 hint: 'getHint',
-                user: 'getLoginUser'
+                loginUser: 'getLoginUser'
             })
         },
         created(){
             this.$store.dispatch('hintInit')
-            const arr = document.cookie.split(';');
-            let token = '';
-            for(let i of arr){
-                i = i.trim()
-                if(i.startsWith('token=')){
-                    token = i.split('=')[1]
-                }
-            }
-
-            if(!this.messages.has_read_messages || this.token !== token){
-                 this.$store.dispatch('fetch_messages', {token})
-                    .catch( e => console.log(e) )
-            }
-        },
-        watch:{
-            user(val){
-                if(!val.name){
-                    this.$router.push({ name: 'index'})
-                }
+            
+            if(!this.messages.has_read_messages && this.token){
+                 this.$store.dispatch('fetch_messages', {token: this.token})
+                    .catch( e => {throw new Error(e.name + ": " + e.message)})
             }
         }
     }

@@ -7,10 +7,10 @@
 			<li>
 				<router-link :to='{name: "index"}'>首页</router-link>
 			</li>
-			<li v-if='typeof user === "object" && Object.keys(user).length > 0'>
+			<li v-if='user.id'>
 				<router-link :to='{name: "message"}'>未读消息</router-link>
 			</li>
-			<li v-if='typeof user !== "object" || Object.keys(user).length === 0'>
+			<li v-if='!user.id'>
 				<router-link :to='{name: "login"}'>登录</router-link>
 			</li>
 			<li v-else>
@@ -29,26 +29,43 @@
 		},
 		methods:{
 			quit(){
-				this.$store.dispatch('fetch_quit')
+				if(this.user.id){
+					this.$store.dispatch('fetch_quit')
+					this.isLogin()
+				}
 			},
 			autoLogin(){
-				const arr = document.cookie.split(';');
-				let token = '';
+				let arr = document.cookie.split(';'),
+					token = '';
 				for(let i of arr){
 					i = i.trim()
-					if(i.startsWith('token=')){
+					if(i.startsWith('token=') && i.length === 42){
 						token = i.split('=')[1]
 					}
 				}
 				
 				if(token.length === 36){
 					this.$store.dispatch('fetch_token', {accesstoken: token})
-						.catch( (e) => console.log(e))
+						.catch( (e) => {throw new Error(e.name + ": " + e.message)})
+				}
+			},
+			isLogin(){
+				var path = this.$route.fullPath;
+				if(path.startsWith('/create') || path.startsWith('/message')){
+					if(!this.user.id){
+						this.$router.push({ name: 'index'})
+					}
 				}
 			}
 		},
 		created(){
 			this.autoLogin()
+			this.isLogin()
+		},
+		watch: {
+			$route(){
+				this.isLogin()
+			}
 		}
 	}
 </script>

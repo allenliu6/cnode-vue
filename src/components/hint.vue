@@ -12,7 +12,9 @@
 </template>
 <script>
     export default {
-      props:['hint']
+      props:{
+        hint: Object
+      }  // 数据本地化
     }
 </script>
 

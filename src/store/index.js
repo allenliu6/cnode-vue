@@ -11,9 +11,9 @@ const state = {
 	currentTab: '',
 	article: {},//文章、评论内容
 	author: {
-		name: '',
-		avatar: '',
-		score: ''
+		// name: '',
+		// avatar: '',
+		// score: ''
 	},//article data
 
 	user: {},//user data

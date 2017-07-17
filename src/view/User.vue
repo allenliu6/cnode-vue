@@ -72,7 +72,7 @@
 				
 		</div>
 		<div class="main-right">
-			<sideBar :author='{"name":author.loginname,"avatar":author.avatar_url,"score":author.score}' :judge='author.loginname'></sideBar>
+			<sideBar :person-info='{"name":author.loginname,"avatar":author.avatar_url,"score":author.score}' :is-login='!!author.avatar_url'></sideBar>
 		</div>
 	</div>
 </template>
@@ -100,7 +100,7 @@
 			getData(user){
 				this.$store.dispatch('hintInit')
 				this.$store.dispatch('fetch_user', {user})
-					.catch( e => console.log(e) )
+					.catch( e => {throw new Error(e.name + ": " + e.message)})
 			}
 		},
 		created(){

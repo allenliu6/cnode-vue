@@ -1,19 +1,9 @@
 <template>
   <div id="app">
     <top></top>
-<<<<<<< HEAD
-
     <div>
         <router-view></router-view>
     </div>
-
-=======
-    
-    <div>
-        <router-view></router-view>
-    </div>
-    
->>>>>>> 856f1f213b6beac8937ffbe5138c09d158d69cc8
     <backtop></backtop>
     <bottom></bottom>
   </div>
@@ -24,6 +14,7 @@ import top from './components/Header'
 import bottom from './components/footer'
 import store from './store/index'
 import backtop from './components/backTop'
+//const bottom
 
 export default {
   components: {
@@ -48,23 +39,12 @@ export default {
       min-height: 700px;
     }
     .main-left{
-<<<<<<< HEAD
           width: 55%;
           height: auto;
 
           .include{
             background-color: #fff;
             box-shadow: 0 0 5px #ccc;
-
-=======
-          width: 65%;
-          height: auto;
-
-          .include{
-            background-color: #fff;   
-            box-shadow: 0 0 5px #ccc;
-            
->>>>>>> 856f1f213b6beac8937ffbe5138c09d158d69cc8
           }
         }
 
@@ -73,11 +53,6 @@ export default {
           margin-left: 3%;
           height: 0px;
         }
-<<<<<<< HEAD
-
-=======
-    
->>>>>>> 856f1f213b6beac8937ffbe5138c09d158d69cc8
 
     ul {
       margin: 0;
@@ -97,11 +72,4 @@ export default {
       vertical-align: middle;
       max-width: 100%;
     }
-<<<<<<< HEAD
-
-
-=======
-    
-  
->>>>>>> 856f1f213b6beac8937ffbe5138c09d158d69cc8
 </style>

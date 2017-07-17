@@ -3,8 +3,18 @@
 //state未能管理全部状态要包括单个页面的状态   回顾全部页面逻辑代码分类迁移  已搞定
 //
 //slot分发内容实现多态  sidebar内容不定，无法分发    keep-live不行，需动态渲染  将sidebar状态判断改到父组件中判断 已搞定不过有个bug，sideBar刷新延迟会出现上次view的内容
-//动画   检错机制    
-// 取消重复请求同时控制好hint变化   搞定
+   // 取消重复请求同时控制好hint变化   搞定
+
+// 检错机制 throw new error  页面搞定
+// 数据API更新  搞定
+// 退出清除数据 搞定
+// 由header统一处理登录权限问题  查看url和login信息判断是否该跳回首页  改变404为错误详情页，显示错误或权限信息    404页面尚未修改
+
+// promise 回调问题  是否应该在页面中进行promise回调传送数据以及判断  凭借promise回调hint状态本地化
+// 本地设置数据时间戳 五分钟更新一次数据
+// 异步组件 代码分割
+
+// 动画   
 
 
 
@@ -144,7 +154,7 @@ export const check_token = ({commit}, bool) =>{
 	自动解构commit
 	无返回值
 */
-export const fetch_quit = ({commit}) => {
+export const fetch_quit = ({commit}) => { 
 	commit( 'FETCH_QUIT_SUCCESS')
 }
 

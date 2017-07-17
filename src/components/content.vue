@@ -8,8 +8,12 @@
 					{{article.title}}
 				</h2>
 				<div class='info'>
-					<span>发布于{{article.create_at | timeToNow}}之前</span>
-					<!-- <span>作者{{article.author.loginname}}</span> -->
+					<span>发布于:{{article.create_at | timeToNow}}之前</span>
+					<span>作者:
+						<router-link :to='{name:"user", params:{ user:article.author.loginname}}'>
+							{{article.author.loginname}}
+						</router-link>
+					</span>
 					<span>浏览{{article.visit_count}}</span>
 					<span>来自{{article.tab | transTab}}</span>
 				</div>
@@ -44,7 +48,9 @@
 
 <script>
 	export default{
-		props:['article']
+		props:{
+			article: Object
+		}
 	}
 </script>
 

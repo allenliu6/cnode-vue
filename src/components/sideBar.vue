@@ -1,63 +1,49 @@
 <template>
 	<div class="sidebar">
-		<div v-if='!judge'>
-			<div class="topic">CNode：Node.js专业中文社区</div>
-			<div class="content">
+			<div v-if='personInfo && personInfo.avatar' class="topic">个人信息</div>
+			<div v-else  class="topic">CNode：Node.js专业中文社区</div>
+			
+			<div v-if='personInfo && personInfo.avatar' class="content">
+				<router-link :to='{name:"user", params:{ user:personInfo.name}}'>
+					<img :src="personInfo.avatar">
+				</router-link>
+				<router-link :to='{name:"user", params:{ user:personInfo.name}}'>
+					{{personInfo.name}}
+				</router-link>
+				<strong>积分：{{personInfo.score}}</strong>
+			</div>
+			<div v-else class="content">
 				<p>您可以通过accessToken登入</p>
-				<button @click='checkToken'>通过token登入</button>
+				<button class="functionBtn" @click='checkToken'>通过token登入</button>
 			</div>
-		</div>
-		
-		<div v-else>
-			<div>
-				<div class="topic">个人信息</div>
-				<div class="content">
-					<div>
-						<router-link :to='{name:"user", params:{ user:author.name}}'>
-							<img :src="author.avatar">
-						</router-link>
-						<router-link :to='{name:"user", params:{ user:author.name}}'>
-							{{author.name}}
-						</router-link>
-					</div>
-					<strong>积分：{{author.score}}</strong>
-				</div>
+			
+			<div class="content addMargin" v-if="isLogin">
+				<router-link class="functionBtn" :to='{name: "publish"}'>发布话题</router-link>
 			</div>
-			<div class="content addMargin" v-if='loginUser.name'>
-				<button>
-					<router-link :to='{name: "publish"}'>发布话题</router-link>
-				</button>
-			</div>
-		</div>
-
 	</div>
 
 </template>
 
 <script>
 	export default{
-		props:['author','judge'],
-		computed: {
-			token(){
-				return this.$store.getters.getToken
-			},
-			loginUser(){
-				return this.$store.getters.getLoginUser
-			}
+		props:{
+			personInfo: Object,
+			isLogin: Boolean
 		},
 		methods:{
-			checkToken(){//从cookie中获取未过期token
-				const arr = document.cookie.split(';');
-				let token = '';
+			checkToken(){ //从cookie中获取未过期token
+				let arr = document.cookie.split(';'),
+					accesstoken = '';
 				for(let i of arr){
 					i = i.trim()
-					if(i.startsWith('token=')){
-						token = i.split('=')[1]
+					if(i.startsWith('token=') && i.length === 42){
+						accesstoken = i.split('=')[1]
 					}
 				}
-				
-				this.$store.dispatch('fetch_token', {accesstoken: token})
-						.catch( e => console.log(e))
+				if(accesstoken.length === 36){
+					this.$store.dispatch('fetch_token', {accesstoken})
+						.catch( (e) => {throw new Error(e.name + ": " + e.message)})
+				}
 			}
 		}
 	}
@@ -85,7 +71,7 @@
 				text-align: left;
 			}
 
-			button{
+			.functionBtn{
 				background-color: #5bc0de;
 				color: #fff;
 				border: 0;

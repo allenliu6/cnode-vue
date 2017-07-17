@@ -1,22 +1,22 @@
 <template>
 <!-- 显示回复错误信息 -->
-<div class="main">
-	<div class="main-left" >
-		<hint v-if='hint.show' :hint='hint'></hint>
+	<div class="main">
+		<div class="main-left" >
+			<hint v-if='hint.show' :hint='hint'></hint>
 
-		<div class="include" v-else>
-			<artcontent :article='article'></artcontent>
-			<div v-if='loginUser'>
-				<div class="cut"></div>
-				<comment :id='article.id'></comment>
+			<div v-else class="include">
+				<artcontent :article='article'></artcontent>
+				<div v-if='token'>
+					<div class="cut"></div>
+					<comment :id='article.id'></comment>
+				</div>
 			</div>
 		</div>
+		
+		<div class="main-right">
+			<sideBar :person-info = "author" :is-login = "!!author.avatar"></sideBar>
+		</div>
 	</div>
-	<div class="main-right">
-		<sideBar :author='author' :judge='author.name'></sideBar>
-	</div>
-</div>
-
 </template>
 
 <script>
@@ -37,7 +37,7 @@
 			...mapGetters({
 				article: 'getArticle',
 				author: 'getAuthor',
-				loginUser: 'getLoginUser',
+				token: 'getToken',
 				hint: 'getHint'
 			})
 		},
@@ -45,7 +45,7 @@
 			if(this.$route.params.id !== this.article.id){
 				this.$store.dispatch('hintInit')
 				this.$store.dispatch( 'fetch_article', {id: this.$route.params.id} )
-					.catch( (e) => console.log(e))
+					.catch( (e) => {throw new Error(e.name + ": " + e.message)})
 			}
 		}
 	}

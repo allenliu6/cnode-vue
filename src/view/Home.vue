@@ -2,7 +2,7 @@
 	<div class="main">
 		<div class="main-left">
 			<div class="navlist">
-				<router-link v-for='tab in tabs' :class='tab === tab ? "navSelect" : "navNormal"' :to='{name: "tab", params: {tab}}'>
+				<router-link v-for='tab in tabs' :class='tab === nowTab ? "navSelect" : "navNormal"' :to='{name: "tab", params: {tab}}'>
 					{{tab | transTab}}
 				</router-link>
 			</div>
@@ -15,7 +15,7 @@
 		</div>
 
 		<div class="main-right">
-			<sideBar :author = 'user' :judge = 'user.name'></sideBar>
+			<sideBar :person-info = "loginUser" :is-login = "!!loginUser.id"></sideBar>
 		</div>
 	</div>
 </template>
@@ -25,11 +25,13 @@
 	import hint from '../components/hint'
 	import list from '../components/list'
 	import {mapGetters} from 'vuex'
+
+	// Foo = () => import('./Foo.vue')
 	
 	export default {
 		data(){
 			return {
-				tabs: ['all', 'good', 'share', 'ask', 'job'],
+				tabs: ['all', 'good', 'share', 'ask', 'job', 'dev'],
 				timer: false,
 				lastPage: 0
 			}
@@ -40,7 +42,7 @@
 			list,
 		},
 		computed: {
-			tab(){
+			nowTab(){
 				return this.$route.params.tab || 'all'
 			},
 			currentPage(){
@@ -48,29 +50,29 @@
 			},
 			...mapGetters({
 				items: 'getTopicList',
-				user: 'getLoginUser',
+				loginUser: 'getLoginUser',
 				hint: 'getHint',
 				currentTab: 'getCurrentTab'
 			})
 		},
 		created(){
-			if(this.currentPage <= 0 || this.tab !== this.currentTab){
-				this.getListInfo(1)
+			if(this.currentPage <= 0 || this.nowTab !== this.currentTab){
+				this.getListInfo(this.nowTab, 1)
 				document.addEventListener('scroll', this.scrollListen)
 			}
 		},
 		watch:{
 			$route(newval, oldval){
 				if(newval.params.tab && oldval.params.tab !== newval.params.tab){
-					this.getListInfo(1)
+					this.getListInfo(newval.params.tab, 1)
 				}
 			}
 		},
 		methods:{
-			getListInfo(page){
+			getListInfo(tab, page){
 				this.$store.dispatch('hintInit')
-				this.$store.dispatch("fetch_list", {tab: this.tab, page} )
-						.catch( (e) => console.log(e))
+				this.$store.dispatch("fetch_list", {tab, page})
+						.catch((e) => {throw new Error(e.name + ": " + e.message)})
 			},
 			scrollListen(){
 				if(!this.timer){
@@ -83,7 +85,7 @@
 					
 					if(top > height * 0.8 && this.lastPage === this.currentPage){
 						this.lastPage++
-						this.$store.dispatch("fetch_list", {tab: this.tab, page: this.currentPage + 1} )
+						this.$store.dispatch("fetch_list", {tab: this.nowTab, page: this.currentPage + 1} )
 								.then(() => {
 									//加强节流   
 									setTimeout(function(){
@@ -91,9 +93,7 @@
 										that.scrollListen()
 									}, 1000)
 								})
-								
-								.catch( (e) => console.log(e))
-						
+								.catch( (e) => {throw new Error(e.name + ": " + e.message)})
 						return 
 					}
 
@@ -102,7 +102,6 @@
 						that.timer = false
 						that.scrollListen()
 					}, 300)
-					
 				}
 			}
 		}
